@@ -5,8 +5,15 @@ const cors = require('cors')
 const port = process.env.PORT || 3000
 const app = express()
 require('dotenv').config();
-app.use(cors())
-app.use(bodyParser.json())
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+    ],
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);app.use(bodyParser.json())
 // app.use(express.json())
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@first-project.dkbbjak.mongodb.net/?retryWrites=true&w=majority&appName=First-Project`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
