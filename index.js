@@ -15,8 +15,9 @@ app.use(
     credentials: true,
     optionsSuccessStatus: 200,
   })
-);app.use(bodyParser.json())
-// app.use(express.json())
+);
+app.use(bodyParser.json())
+app.use(express.json())
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@first-project.dkbbjak.mongodb.net/?retryWrites=true&w=majority&appName=First-Project`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
