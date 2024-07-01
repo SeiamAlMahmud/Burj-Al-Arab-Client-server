@@ -4,11 +4,11 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const port = process.env.PORT || 3000
 const app = express()
-const username = 'samahmud1';
-const password = 'LH2of9x93EUYez4f'
+require('dotenv').config();
 app.use(cors())
 app.use(bodyParser.json())
-const uri = `mongodb+srv://${username}:${password}@first-project.dkbbjak.mongodb.net/?retryWrites=true&w=majority&appName=First-Project`;
+// app.use(express.json())
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@first-project.dkbbjak.mongodb.net/?retryWrites=true&w=majority&appName=First-Project`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
