@@ -14,7 +14,7 @@
       }
     },
     {
-      "src": "/addBooking",
+      "src": "/",
       "dest": "/addBooking",
       "methods": ["POST"],
       "headers": {
@@ -22,7 +22,7 @@
       }
     },
     {
-      "src": "/getBooking",
+      "src": "/",
       "dest": "/getBooking",
       "methods": ["GET"],
       "headers": {
