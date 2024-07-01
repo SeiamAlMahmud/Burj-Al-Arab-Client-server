@@ -10,10 +10,20 @@
     "routes": [
       { "src": "/(.*)", 
       "dest": "/" ,
-    "methods": ["GET","POST","DELETE","PUT","PATCH","OPTIONS"],
+    "methods": ["*"],
     "headers": {
       "Access-Control-Allow-Origin": "*"
     } 
+    },
+    {
+      "src": "/addBooking",  
+      "dest": "/addBooking", 
+      "methods": ["POST"]    
+    },
+    {
+      "src": "/getBooking",  
+      "dest": "/getBooking", 
+      "methods": ["GET"]    
     }
     ]
   }
