@@ -8,26 +8,11 @@
   "routes": [{
       "src": "/(.*)",
       "dest": "/",
-      "methods": ["POST","GET","DELETE"],
+      "methods": ["POST","GET","DELETE","OPTIONS","PUT","PATCH"],
       "headers": {
         "Access-Control-Allow-Origin": "*"
       }
     },
-    {
-      "src": "/",
-      "dest": "/addBooking",
-      "methods": ["POST"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*"
-      }
-    },
-    {
-      "src": "/",
-      "dest": "/getBooking",
-      "methods": ["GET"],
-      "headers": {
-      "Access-Control-Allow-Origin": "*"
-    } 
-    }
+  
   ]
 }
