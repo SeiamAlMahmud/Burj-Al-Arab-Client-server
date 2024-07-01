@@ -9,6 +9,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
+      "https://burj-al-arab-client.vercel.app"
     ],
     credentials: true,
     optionsSuccessStatus: 200,
