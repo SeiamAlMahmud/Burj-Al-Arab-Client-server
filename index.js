@@ -11,6 +11,7 @@ app.use(
       "http://localhost:5173",
       "https://burj-al-arab-client.vercel.app/"
     ],
+    methods: "GET,POST,PUT,DELETE",
     credentials: true,
     optionsSuccessStatus: 200,
   })
