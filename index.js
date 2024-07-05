@@ -61,28 +61,36 @@ async function run() {
       const result = await bookingCollection.find({ _id: new ObjectId(id) }).toArray()
       res.send(result)
     })
-    app.get('/login/token',  (req, res) => {
+    app.get('/login/token', (req, res) => {
       const authToken = req.headers.authorization?.split(' ')[1];
       console.log(authToken)
+      if (!authToken) {
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
+      try {
+        const decoded = jwt.verify(authToken, process.env.SECRET_KEY);
+        console.log(decoded.userToken)
+        res.send(decoded.userToken)
+      }
+      catch {
+        err => {
 
-         // const verifyJWT = (req, res, next) => {
-      //   const token = req.headers.authorization?.split(' ')[1]; // Extract token from Authorization header
+        }
+      }
 
-      //   if (!token) {
-      //     return res.status(401).json({ message: 'Unauthorized' });
-      //   }
+
+
 
       //   try {
-      //     const decoded = jwt.verify(token,  process.env.SECRET_KEY);
+
       //     req.userToken = decoded.userToken; // Attach decoded user ID to the request object
       //     next();
       //   } catch (error) {
       //     res.status(401).json({ message: 'Unauthorized' });
       //   }
       // }
-     
 
-      res.send(authToken)
+
     })
 
 
@@ -107,7 +115,7 @@ async function run() {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
       }
-   
+
     })
 
   } finally {
