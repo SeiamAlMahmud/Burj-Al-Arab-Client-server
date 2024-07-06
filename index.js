@@ -45,15 +45,36 @@ async function run() {
     const bookingCollection = database.collection("booking")
     const usersCollection = database.collection("users")
 
+
+       // Example middleware for verifying JWT and extracting user role
+const verifyJWT = (req, res, next) => {
+  const token = req.headers['authorization']?.split(' ')[1]; // Extract token from header
+
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY); // Use your strong secret key
+    req.user = decoded; // Attach user information to the request object
+    next();
+  } catch (error) {
+    return res.status(403).json({ message: 'Forbidden' }); // Handle invalid or expired token
+  }
+};
+
+
+
     app.post('/addBooking', async (req, res) => {
       const newBooking = req.body;
       const result = await bookingCollection.insertOne(newBooking)
       console.log(newBooking)
       res.send(result)
     })
-    app.get('/getBooking', async (req, res) => {
+    app.get('/getBooking',verifyJWT,async (req, res) => {
       const result = await bookingCollection.find({}).toArray()
       res.send(result)
+      // console.log(result)
     })
     app.get('/getBooking/:id', async (req, res) => {
       const id = req.params.id;
@@ -61,6 +82,13 @@ async function run() {
       const result = await bookingCollection.find({ _id: new ObjectId(id) }).toArray()
       res.send(result)
     })
+
+
+
+
+
+
+ 
     app.get('/login/token', (req, res) => {
       const authToken = req.headers.authorization?.split(' ')[1];
       console.log(authToken)
@@ -77,19 +105,6 @@ async function run() {
 
         }
       }
-
-
-
-
-      //   try {
-
-      //     req.userToken = decoded.userToken; // Attach decoded user ID to the request object
-      //     next();
-      //   } catch (error) {
-      //     res.status(401).json({ message: 'Unauthorized' });
-      //   }
-      // }
-
 
     })
 
